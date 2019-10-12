@@ -33,6 +33,7 @@ public class PlayerScript : MonoBehaviour
     {
         GetInputs();
         Vector3 move = new Vector3(xInput, 0, zInput);
+        //move.Normalize();
         move = Vector3.ClampMagnitude(move, MovementSpeed);
         move = transform.TransformVector(move);
 
@@ -40,7 +41,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
-                ySpeed = 10f;
+                ySpeed = 7f;
             }
             else
             {
