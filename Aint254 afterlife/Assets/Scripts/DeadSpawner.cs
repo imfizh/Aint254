@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class DeadSpawner : MonoBehaviour
 {
+    public Return rs;
+    
     public GameObject deadplayer;
     public GameObject player;
     Vector3 pos;
     bool checkIfDead = false;
     public Image screenEffect;
-
+    bool checkRange;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,18 @@ public class DeadSpawner : MonoBehaviour
             Instantiate(deadplayer,pos,transform.rotation);
             checkIfDead = true;
             screenEffect.enabled = true;
+        }
+        if (rs.rangeCheck == true)
+        {
+            checkRange = true;
+        }
+        if (Input.GetKeyDown(KeyCode.K) && checkIfDead == true)
+        {
+            if (checkRange == true)
+            {
+                screenEffect.enabled = false;
+                checkIfDead = false;
+            }
         }
     }
     void GetPos()
