@@ -12,7 +12,7 @@ public class DeadSpawner : MonoBehaviour
     Vector3 pos;
     bool checkIfDead = false;
     public Image screenEffect;
-    bool checkRange;
+    bool checkRange = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,18 +29,23 @@ public class DeadSpawner : MonoBehaviour
             checkIfDead = true;
             screenEffect.enabled = true;
         }
-        if (rs.rangeCheck == true)
-        {
-            checkRange = true;
-        }
+        
         if (Input.GetKeyDown(KeyCode.K) && checkIfDead == true)
         {
+            
+            if (rs.rangeCheck == true)
+            {
+                checkRange = true;
+            }
+            print(checkRange);
             if (checkRange == true)
             {
                 screenEffect.enabled = false;
                 checkIfDead = false;
+                checkRange = false;
             }
         }
+        
     }
     void GetPos()
     {

@@ -23,7 +23,9 @@ public class MovementScript : MonoBehaviour
     bool isJumping;
     bool isGrounded;
 
+    public Return rs;
     bool checkIfDead = false;
+    bool checkRange = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,11 +53,7 @@ public class MovementScript : MonoBehaviour
         Movement.Normalize();
 
         //adjustSpeed = speed;
-        if (Input.GetKeyDown(KeyCode.K) && checkIfDead == false)
-        {
-            rb.mass = 0.75f;
-            checkIfDead = true;
-        }
+        CheckIfDeaded();
         adjustSpeed = speed;
         adjustJumpForce = jumpForce;
        
@@ -74,7 +72,27 @@ public class MovementScript : MonoBehaviour
         //Camera when sprinting
         if (isSprinting) { player_camera.fieldOfView = Mathf.Lerp(player_camera.fieldOfView, baseFOV * FOVmodifier, Time.deltaTime * 8f); }
         else { player_camera.fieldOfView = Mathf.Lerp(player_camera.fieldOfView, baseFOV, Time.deltaTime * 8f); }
-
-        
+    }
+    void CheckIfDeaded()
+    {
+        if (Input.GetKeyDown(KeyCode.K) && checkIfDead == false)
+        {
+            rb.mass = 0.75f;
+            checkIfDead = true;
+        }
+       
+        if (Input.GetKeyDown(KeyCode.K) && checkIfDead == true)
+        {
+            if (rs.rangeCheck == true)
+            {
+                checkRange = true;
+            }
+            if (checkRange == true)
+            {
+                rb.mass = 1.0f;
+                checkIfDead = false;
+                checkRange = false;
+            }
+        }
     }
 }

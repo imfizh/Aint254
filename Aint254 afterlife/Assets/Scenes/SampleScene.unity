@@ -742,6 +742,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 256
+  rs: {fileID: 651269902}
 --- !u!54 &651269899
 Rigidbody:
   m_ObjectHideFlags: 0
