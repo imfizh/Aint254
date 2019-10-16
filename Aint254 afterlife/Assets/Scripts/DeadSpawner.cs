@@ -37,7 +37,7 @@ public class DeadSpawner : MonoBehaviour
             {
                 checkRange = true;
             }
-            print(checkRange);
+            
             if (checkRange == true)
             {
                 screenEffect.enabled = false;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MovementScript : MonoBehaviour
 {
@@ -10,19 +11,24 @@ public class MovementScript : MonoBehaviour
     public Camera player_camera;
     public Transform groundDetector;
     public LayerMask ground;
+    public GameObject barTime;
     private float baseFOV;
     private float FOVmodifier = 1.35f;
     private Rigidbody rb;
+    private Transform HUD_time;
     float xInput;
     float zInput;
     float adjustSpeed;
     float adjustJumpForce;
+    float maxTime = 150.0f;
+    float minusTime = 10.0f;
+    float remainTime = 150.0f;
     bool sprint;
     bool isSprinting;
     bool jump;
     bool isJumping;
     bool isGrounded;
-
+    
     public Return rs;
     bool checkIfDead = false;
     bool checkRange = false;
@@ -32,6 +38,9 @@ public class MovementScript : MonoBehaviour
         baseFOV = player_camera.fieldOfView;
         //Camera.main.enabled = false;
         rb = GetComponent<Rigidbody>();
+        HUD_time = GameObject.Find("HUD/Time/Bar").transform;
+        barTime.transform.gameObject.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -52,7 +61,6 @@ public class MovementScript : MonoBehaviour
         Vector3 Movement = new Vector3(xInput, 0.0f, zInput);
         Movement.Normalize();
 
-        //adjustSpeed = speed;
         CheckIfDeaded();
         adjustSpeed = speed;
         adjustJumpForce = jumpForce;
@@ -60,13 +68,17 @@ public class MovementScript : MonoBehaviour
         Vector3 t_targetVelocity = transform.TransformDirection(Movement) * adjustSpeed * Time.deltaTime;
         t_targetVelocity.y = rb.velocity.y;
         rb.velocity = t_targetVelocity;
-        
 
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            //UpdateHealth();
+            //barTime.transform.gameObject.SetActive(true);
+            //InvokeRepeating("UpdateTime", 0.0f, 1.0f);
+        }
         //Jumping
         if (isJumping)
         {
             rb.AddForce(Vector3.up * adjustJumpForce);
-            
         }
         
         //Camera when sprinting
@@ -79,8 +91,10 @@ public class MovementScript : MonoBehaviour
         {
             rb.mass = 0.75f;
             checkIfDead = true;
+            barTime.transform.gameObject.SetActive(true);
+            InvokeRepeating("UpdateTime", 0.0f, 1.0f);
         }
-       
+
         if (Input.GetKeyDown(KeyCode.K) && checkIfDead == true)
         {
             if (rs.rangeCheck == true)
@@ -92,7 +106,21 @@ public class MovementScript : MonoBehaviour
                 rb.mass = 1.0f;
                 checkIfDead = false;
                 checkRange = false;
+                barTime.transform.gameObject.SetActive(false);
+                CancelInvoke();
+                remainTime = maxTime;
             }
         }
+    }
+    void UpdateTime()
+    {
+        if (remainTime <= 10)
+        {
+            FindObjectOfType<sceneLoader>().LoadGameOver();
+        }
+        remainTime -= minusTime;
+        float t_time = (float)remainTime / (float)maxTime;
+        HUD_time.localScale = new Vector3(t_time, 1, 1);
+        
     }
 }
