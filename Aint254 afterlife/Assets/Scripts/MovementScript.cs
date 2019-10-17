@@ -68,13 +68,17 @@ public class MovementScript : MonoBehaviour
         Vector3 t_targetVelocity = transform.TransformDirection(Movement) * adjustSpeed * Time.deltaTime;
         t_targetVelocity.y = rb.velocity.y;
         rb.velocity = t_targetVelocity;
-
-        if (Input.GetKeyDown(KeyCode.U))
+        if (isSprinting)
         {
-            //UpdateHealth();
-            //barTime.transform.gameObject.SetActive(true);
-            //InvokeRepeating("UpdateTime", 0.0f, 1.0f);
+            adjustSpeed = adjustSpeed * sprintModifier;
+            t_targetVelocity = transform.TransformDirection(Movement) * adjustSpeed * Time.deltaTime;
+            t_targetVelocity.y = rb.velocity.y;
+            rb.velocity = t_targetVelocity;
         }
+        //if (Input.GetKeyDown(KeyCode.U))
+        //{
+            
+        //}
         //Jumping
         if (isJumping)
         {
