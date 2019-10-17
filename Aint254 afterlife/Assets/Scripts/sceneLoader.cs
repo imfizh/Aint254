@@ -9,4 +9,8 @@ public class sceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("Game Over");
     }
+    public void LoadGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
 }
