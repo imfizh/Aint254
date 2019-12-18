@@ -7,7 +7,7 @@ public class MovementScript : MonoBehaviour
 {
     public float speed = 500.0f;
     public float jumpForce = 100.0f;
-    public float sprintModifier = 2.0f;
+    public float sprintModifier = 2f;
     public Camera player_camera;
     public Transform groundDetector;
     public LayerMask ground;

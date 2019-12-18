@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Camera_look : MonoBehaviour
 {
-    public static bool curserLocked = true;
+    //public static bool curserLocked = true;
     public Transform player;
     public Transform cam;
 
@@ -16,6 +16,7 @@ public class Camera_look : MonoBehaviour
     void Start()
     {
         camCentre = cam.localRotation;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -23,7 +24,7 @@ public class Camera_look : MonoBehaviour
     {
         SetY();
         SetX();
-        updateCurserLocked();
+        //updateCurserLocked();
     }
     void SetY()
     {
@@ -42,25 +43,25 @@ public class Camera_look : MonoBehaviour
         Quaternion t_delta = player.localRotation * t_ang;
         player.localRotation = t_delta;
     }
-    void updateCurserLocked()
-    {
-        if (curserLocked)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                curserLocked = false;
-            }
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                curserLocked = true;
-            }
-        }
-    }
+    //void updateCurserLocked()
+    //{
+    //    if (curserLocked)
+    //    {
+    //        Cursor.lockState = CursorLockMode.Locked;
+    //        Cursor.visible = false;
+    //        if (Input.GetKeyDown(KeyCode.Escape))
+    //        {
+    //            curserLocked = false;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Cursor.lockState = CursorLockMode.None;
+    //        Cursor.visible = true;
+    //        if (Input.GetKeyDown(KeyCode.Escape))
+    //        {
+    //            curserLocked = true;
+    //        }
+    //    }
+    //}
 }
