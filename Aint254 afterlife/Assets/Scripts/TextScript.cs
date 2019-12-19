@@ -10,7 +10,7 @@ public class TextScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        onScreenText.text = "Press K to kill self";
+        
     }
 
     // Update is called once per frame

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DoorScript : MonoBehaviour
 {
@@ -13,10 +14,21 @@ public class DoorScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Game"))
         {
-            FindObjectOfType<sceneLoader>().LoadLevel2();
+            if (other.gameObject.tag == "Player")
+            {
+                FindObjectOfType<sceneLoader>().LoadLevel2();
+            }
         }
+        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                FindObjectOfType<sceneLoader>().LoadLevel3();
+            }
+        }
+        
     }
     
 }

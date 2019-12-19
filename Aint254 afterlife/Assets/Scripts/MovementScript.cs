@@ -75,10 +75,7 @@ public class MovementScript : MonoBehaviour
             t_targetVelocity.y = rb.velocity.y;
             rb.velocity = t_targetVelocity;
         }
-        //if (Input.GetKeyDown(KeyCode.U))
-        //{
-            
-        //}
+        
         //Jumping
         if (isJumping)
         {

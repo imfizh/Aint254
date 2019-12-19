@@ -6,14 +6,12 @@ using UnityEngine.UI;
 public class Return : MonoBehaviour
 {
     public Text theText;
-    
     public bool rangeCheck = false;
   
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.K) && rangeCheck == true)
         {
-            
             rangeCheck = false;
         }
     }
@@ -22,7 +20,7 @@ public class Return : MonoBehaviour
     {
         if(other.gameObject.tag == "DeadPlayer")
         {
-            theText.text = "Press K to return to body";
+            theText.text = "Press K to return to life";
             rangeCheck = true;
         }
     }
