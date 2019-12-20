@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,22 +29,22 @@ public class MovementScript : MonoBehaviour
     bool jump;
     bool isJumping;
     bool isGrounded;
-    
+
     public Return rs;
     bool checkIfDead = false;
-    bool checkRange = false;
-    // Start is called before the first frame update
+    //bool checkRange = false;
+    
     void Start()
     {
         baseFOV = player_camera.fieldOfView;
-        //Camera.main.enabled = false;
+        
         rb = GetComponent<Rigidbody>();
         HUD_time = GameObject.Find("HUD/Time/Bar").transform;
         barTime.transform.gameObject.SetActive(false);
-        
+
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         xInput = Input.GetAxisRaw("Horizontal");
@@ -56,15 +57,15 @@ public class MovementScript : MonoBehaviour
         isGrounded = Physics.Raycast(groundDetector.position, Vector3.down, 0.1f, ground);
         isJumping = jump && isGrounded;
         isSprinting = sprint && zInput > 0 && !isJumping && isGrounded;
-        
+
         //Movement
         Vector3 Movement = new Vector3(xInput, 0.0f, zInput);
         Movement.Normalize();
 
-        CheckIfDeaded();
+        // CheckIfDeaded();
         adjustSpeed = speed;
         adjustJumpForce = jumpForce;
-       
+
         Vector3 t_targetVelocity = transform.TransformDirection(Movement) * adjustSpeed * Time.deltaTime;
         t_targetVelocity.y = rb.velocity.y;
         rb.velocity = t_targetVelocity;
@@ -75,53 +76,80 @@ public class MovementScript : MonoBehaviour
             t_targetVelocity.y = rb.velocity.y;
             rb.velocity = t_targetVelocity;
         }
-        
+
         //Jumping
         if (isJumping)
         {
             rb.AddForce(Vector3.up * adjustJumpForce);
         }
-        
+
         //Camera when sprinting
         if (isSprinting) { player_camera.fieldOfView = Mathf.Lerp(player_camera.fieldOfView, baseFOV * FOVmodifier, Time.deltaTime * 8f); }
         else { player_camera.fieldOfView = Mathf.Lerp(player_camera.fieldOfView, baseFOV, Time.deltaTime * 8f); }
     }
-    void CheckIfDeaded()
+
+
+    //void CheckIfDeaded()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.K) && checkIfDead == false)
+    //    //if(checkIfDead == false)
+    //    {
+    //        rb.mass = 0.75f;
+    //        checkIfDead = true;
+    //        barTime.transform.gameObject.SetActive(true);
+    //        InvokeRepeating("UpdateTime", 0.0f, 1.0f);
+    //    }
+
+    //    if (Input.GetKeyDown(KeyCode.K) && checkIfDead == true)
+    //    {
+    //        if (rs.rangeCheck == true)
+    //        {
+    //            checkRange = true;
+    //        }
+    //        if (checkRange == true)
+    //        {
+    //            rb.mass = 1.0f;
+    //            checkIfDead = false;
+    //            checkRange = false;
+    //            barTime.transform.gameObject.SetActive(false);
+    //            CancelInvoke();
+    //            remainTime = maxTime;
+    //        }
+    //    }
+    //}
+    public void Die()
     {
-        if (Input.GetKeyDown(KeyCode.K) && checkIfDead == false)
+        if(checkIfDead == false)
         {
             rb.mass = 0.75f;
             checkIfDead = true;
             barTime.transform.gameObject.SetActive(true);
             InvokeRepeating("UpdateTime", 0.0f, 1.0f);
         }
-
-        if (Input.GetKeyDown(KeyCode.K) && checkIfDead == true)
+    }
+    public void Revive()
+    {
+        if (checkIfDead == true) 
         {
-            if (rs.rangeCheck == true)
-            {
-                checkRange = true;
-            }
-            if (checkRange == true)
-            {
                 rb.mass = 1.0f;
                 checkIfDead = false;
-                checkRange = false;
+                //checkRange = false;
                 barTime.transform.gameObject.SetActive(false);
                 CancelInvoke();
                 remainTime = maxTime;
-            }
         }
     }
+
     void UpdateTime()
     {
-        if (remainTime <= 10)
-        {
-            FindObjectOfType<sceneLoader>().LoadGameOver();
-        }
-        remainTime -= minusTime;
-        float t_time = (float)remainTime / (float)maxTime;
-        HUD_time.localScale = new Vector3(t_time, 1, 1);
-        
+            if (remainTime <= 10)
+            {
+                FindObjectOfType<sceneLoader>().LoadGameOver();
+            }
+            remainTime -= minusTime;
+            float t_time = (float)remainTime / (float)maxTime;
+            HUD_time.localScale = new Vector3(t_time, 1, 1);
+
     }
-}
+ }
+

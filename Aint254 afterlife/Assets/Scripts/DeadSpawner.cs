@@ -7,8 +7,6 @@ public class DeadSpawner : MonoBehaviour
 {
     public Return rs;
 
-    //public GameObject deadplayer;
-    //Vector3 pos;
     public GameObject player;
     bool checkIfDead = false;
     public Image screenEffect;
@@ -16,14 +14,6 @@ public class DeadSpawner : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K) && checkIfDead == false)
-        {
-            //GetPos();
-            //Instantiate(deadplayer,pos,transform.rotation);
-            checkIfDead = true;
-            screenEffect.enabled = true;
-        }
-        
         if (Input.GetKeyDown(KeyCode.K) && checkIfDead == true)
         {
             
@@ -35,9 +25,9 @@ public class DeadSpawner : MonoBehaviour
         }
         
     }
-    //void GetPos()
-    //{
-    //    pos = player.transform.position;
-    //    pos.z -= 1;
-    //}
+    public void die()
+    {
+        checkIfDead = true;
+        screenEffect.enabled = true;
+    }
 }

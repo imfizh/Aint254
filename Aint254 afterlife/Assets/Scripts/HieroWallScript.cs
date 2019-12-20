@@ -32,9 +32,7 @@ public class HieroWallScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-
             theText.text = "It says 'Sometimes death is the only way forward'";
-
         }
     }
 }
