@@ -5,29 +5,24 @@ using UnityEngine.UI;
 
 public class DeadSpawner : MonoBehaviour
 {
-    public Return rs;
-
-    public GameObject player;
-    bool checkIfDead = false;
     public Image screenEffect;
-   
-
+    private GameObject GhostWall;
+    private void Start()
+    {
+        GhostWall = GameObject.FindGameObjectWithTag("GhostWall");
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K) && checkIfDead == true)
-        {
-            
-            if (rs.rangeCheck == true)
-            {
-                screenEffect.enabled = false;
-                checkIfDead = false;
-            }
-        }
         
     }
     public void die()
     {
-        checkIfDead = true;
         screenEffect.enabled = true;
+        GhostWall.GetComponent<BoxCollider>().enabled = false;
+    }
+    public void unDie()
+    {
+        screenEffect.enabled = false;
+        GhostWall.GetComponent<BoxCollider>().enabled = true;
     }
 }

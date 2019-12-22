@@ -32,7 +32,6 @@ public class MovementScript : MonoBehaviour
 
     public Return rs;
     bool checkIfDead = false;
-    //bool checkRange = false;
     
     void Start()
     {
@@ -62,7 +61,6 @@ public class MovementScript : MonoBehaviour
         Vector3 Movement = new Vector3(xInput, 0.0f, zInput);
         Movement.Normalize();
 
-        // CheckIfDeaded();
         adjustSpeed = speed;
         adjustJumpForce = jumpForce;
 
@@ -89,34 +87,7 @@ public class MovementScript : MonoBehaviour
     }
 
 
-    //void CheckIfDeaded()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.K) && checkIfDead == false)
-    //    //if(checkIfDead == false)
-    //    {
-    //        rb.mass = 0.75f;
-    //        checkIfDead = true;
-    //        barTime.transform.gameObject.SetActive(true);
-    //        InvokeRepeating("UpdateTime", 0.0f, 1.0f);
-    //    }
-
-    //    if (Input.GetKeyDown(KeyCode.K) && checkIfDead == true)
-    //    {
-    //        if (rs.rangeCheck == true)
-    //        {
-    //            checkRange = true;
-    //        }
-    //        if (checkRange == true)
-    //        {
-    //            rb.mass = 1.0f;
-    //            checkIfDead = false;
-    //            checkRange = false;
-    //            barTime.transform.gameObject.SetActive(false);
-    //            CancelInvoke();
-    //            remainTime = maxTime;
-    //        }
-    //    }
-    //}
+  
     public void Die()
     {
         if(checkIfDead == false)
@@ -133,7 +104,6 @@ public class MovementScript : MonoBehaviour
         {
                 rb.mass = 1.0f;
                 checkIfDead = false;
-                //checkRange = false;
                 barTime.transform.gameObject.SetActive(false);
                 CancelInvoke();
                 remainTime = maxTime;

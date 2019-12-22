@@ -9,10 +9,12 @@ public class Return : MonoBehaviour
     public bool rangeCheck = false;
     private MovementScript ms;
     private health H;
+    private DeadSpawner ds;
     private void Start()
     {
         ms = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementScript>();
         H = GameObject.FindGameObjectWithTag("Player").GetComponent<health>();
+        ds = GameObject.FindGameObjectWithTag("Player").GetComponent<DeadSpawner>();
     }
 
     void Update()
@@ -21,6 +23,7 @@ public class Return : MonoBehaviour
         {
             ms.Revive();
             H.fullHealth();
+            ds.unDie();
             rangeCheck = false;
         }
     }

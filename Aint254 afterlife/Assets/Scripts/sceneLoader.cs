@@ -7,7 +7,7 @@ public class sceneLoader : MonoBehaviour
 {
    public void LoadGameOver()
     {
-        Cursor.lockState = CursorLockMode.None; ;
+        Cursor.lockState = CursorLockMode.None; 
         SceneManager.LoadScene("Game Over");
     }
     public void LoadGame()
@@ -24,7 +24,8 @@ public class sceneLoader : MonoBehaviour
     }
     public void LoadGameComplete()
     {
-        SceneManager.LoadScene("Game finish");
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene("Game finished");
     }
     public void LoadStartScreen()
     {
